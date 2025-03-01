@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Area Calculator</h2>
+        <label for="shape">Select Shape:</label>
+        <select id="shape" onchange="updateInputs()">
+            <option value="rectangle">Rectangle</option>
+            <option value="circle">Circle</option>
+        </select>
+        
+        <div id="rectangleInputs">
+            <input type="number" id="length" placeholder="Enter Length">
+            <input type="number" id="width" placeholder="Enter Width">
+        </div>
+        
+        <div id="circleInputs" style="display: none;">
+            <input type="number" id="radius" placeholder="Enter Radius">
+        </div>
+        
+        <button onclick="calculateArea()"><b>Calculate Area</b></button>
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        function updateInputs() {
+            let shape = document.getElementById("shape").value;
+            document.getElementById("rectangleInputs").style.display = shape === "rectangle" ? "block" : "none";
+            document.getElementById("circleInputs").style.display = shape === "circle" ? "block" : "none";
+        }
+
+        function calculateArea() {
+            let shape = document.getElementById("shape").value;
+            let result = 0;
+            
+            if (shape === "rectangle") {
+                let length = parseFloat(document.getElementById("length").value);
+                let width = parseFloat(document.getElementById("width").value);
+                if (!isNaN(length) && !isNaN(width)) {
+                    result = length * width;
+                } else {
+                    alert("Please enter valid numbers for length and width.");
+                    return;
+                }
+            } else if (shape === "circle") {
+                let radius = parseFloat(document.getElementById("radius").value);
+                if (!isNaN(radius)) {
+                    result = Math.PI * radius * radius;
+                } else {
+                    alert("Please enter a valid number for radius.");
+                    return;
+                }
+            }
+            
+            document.getElementById("result").innerText = "Area: " + result.toFixed(2);
+        }
+    </script>
+</body>
+</html>
